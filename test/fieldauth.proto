@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package fieldauth;
+
+service FieldService {
+  rpc Fn1 (Request) returns (Response) {}
+  rpc Fn2 (Request) returns (Response) {}
+  rpc Fn3 (Request) returns (Response) {}
+  rpc Fn4 (Request) returns (Response) {}
+}
+
+message Request {
+  string message = 1;
+}
+
+message Response {
+  string message = 1;
+}

@@ -1,0 +1,48 @@
+{
+  "name": "mali-metadata-field-auth",
+  "version": "0.0.0",
+  "description": "Generic Mali metadata field authorization middleware",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malijs/metadata-field-auth.git"
+  },
+  "author": {
+    "name": "Bojan D.",
+    "email": "dbojan@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/malijs/metadata-field-auth/issues"
+  },
+  "homepage": "https://github.com/malijs/metadata-field-auth",
+  "keywords": [
+    "mali",
+    "grpc",
+    "service",
+    "server",
+    "microservice",
+    "logging"
+  ],
+  "scripts": {
+    "test": "ava -v",
+    "docs": "jsdoc2md index.js --heading-depth 3 --template readme.hbs | md-wrap-code > README.md"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "create-grpc-error": "^0.1.0",
+    "mali-metadata-auth": "^0.1.1"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-eslint": "^7.1.1",
+    "grpc-caller": "^0.1.0",
+    "jsdoc-to-markdown": "^2.0.1",
+    "mali": "^0.0.2",
+    "md-wrap-code": "^0.1.1",
+    "p-map": "^1.1.0",
+    "standard": "^8.6.0"
+  }
+}
