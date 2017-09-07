@@ -4,7 +4,7 @@ import caller from 'grpc-caller'
 import Mali from 'mali'
 import grpc from 'grpc'
 import pMap from 'p-map'
-import create from 'create-grpc-error'
+import create from 'grpc-create-error'
 
 import fauth from '../'
 

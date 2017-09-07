@@ -1,5 +1,5 @@
 const auth = require('mali-metadata-auth')
-const create = require('create-grpc-error')
+const create = require('grpc-create-error')
 
 /**
  * Generic Mali metadata field authorization middleware
