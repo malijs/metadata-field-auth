@@ -33,10 +33,10 @@
     "mali-metadata-auth": "^0.1.2"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "grpc-caller": "^0.2.0",
+    "ava": "~0.23.0",
+    "grpc-caller": "~0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
-    "mali": "~0.3.0",
+    "mali": "~0.4.0",
     "p-map": "^1.1.0",
     "standard": "^10.0.0"
   }
