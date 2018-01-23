@@ -1,5 +1,7 @@
 # mali-metadata-field-auth
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/metadata-field-auth.svg)](https://greenkeeper.io/)
+
 Base middleware utility for metadata auth field checks for Mali
 
 [![npm version](https://img.shields.io/npm/v/mali-metadata-field-auth.svg?style=flat-square)](https://www.npmjs.com/package/mali-metadata-field-auth)
