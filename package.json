@@ -33,7 +33,7 @@
     "mali-metadata-auth": "^0.1.2"
   },
   "devDependencies": {
-    "ava": "~0.25.0",
+    "ava": "~1.2.1",
     "greenkeeper-lockfile": "^1.15.1",
     "grpc": "^1.14.0-pre2",
     "grpc-caller": "^0.9.0",
