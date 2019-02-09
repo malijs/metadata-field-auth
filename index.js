@@ -1,10 +1,10 @@
-const auth = require('mali-metadata-auth')
+const auth = require('@malijs/metadata-auth')
 const create = require('grpc-create-error')
 
 /**
  * Generic Mali metadata field authorization middleware
  * If the call has metadata with "authorization" string property with <code>"{field} {value}"</code> then specified function is called.
- * @module mali-metadata-field-auth
+ * @module @malijs/metadata-field-auth
  *
  * @param  {String} field Field within the authorization metadata value to look for.
  * @param  {Options} options
@@ -20,7 +20,7 @@ const create = require('grpc-create-error')
  * @param  {Function} fn The middleware function to execute with signature <code>(key, ctx, next)</code>
  *
  * @example
- * const fieldAuth = require('mali-metadata-field-auth')
+ * const fieldAuth = require('@malijs/metadata-field-auth')
  *
  * app.use(fieldAuth('secret', async (key, ctx, next) => {
  *   console.log(key)

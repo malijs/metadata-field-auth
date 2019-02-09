@@ -2,17 +2,16 @@
 
 Base middleware utility for metadata auth field checks for Mali
 
-[![npm version](https://img.shields.io/npm/v/mali-metadata-field-auth.svg?style=flat-square)](https://www.npmjs.com/package/mali-metadata-field-auth)
+[![npm version](https://img.shields.io/npm/v/@malijs/metadata-field-auth.svg?style=flat-square)](https://www.npmjs.com/package/@malijs/metadata-field-auth)
 [![build status](https://img.shields.io/travis/malijs/metadata-field-auth/master.svg?style=flat-square)](https://travis-ci.org/malijs/metadata-field-auth)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](https://standardjs.com)
 [![License](https://img.shields.io/github/license/malijs/metadata-field-auth.svg?style=flat-square)](https://raw.githubusercontent.com/malijs/metadata-field-auth/master/LICENSE)
-[![Greenkeeper badge](https://badges.greenkeeper.io/malijs/metadata-field-auth.svg)](https://greenkeeper.io/)
 
 ## API
 
-<a name="module_mali-metadata-field-auth"></a>
+<a name="module_@malijs/metadata-field-auth"></a>
 
-### mali-metadata-field-auth
+### @malijs/metadata-field-auth
 Generic Mali metadata field authorization middleware
 If the call has metadata with "authorization" string property with <code>"{field} {value}"</code> then specified function is called.
 
@@ -26,7 +25,7 @@ If the call has metadata with "authorization" string property with <code>"{field
 
 **Example**  
 ```js
-const fieldAuth = require('mali-metadata-field-auth')
+const fieldAuth = require('@malijs/metadata-field-auth')
 
 app.use(fieldAuth('secret', async (key, ctx, next) => {
   console.log(key)
