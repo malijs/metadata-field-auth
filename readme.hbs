@@ -1,4 +1,4 @@
-# mali-metadata-field-auth
+# @malijs/metadata-field-auth
 
 Base middleware utility for metadata auth field checks for Mali
 
