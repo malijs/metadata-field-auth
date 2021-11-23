@@ -1,12 +1,11 @@
-import test from 'ava'
-import path from 'path'
-import caller from 'grpc-caller'
-import Mali from 'mali'
-import grpc from 'grpc'
-import pMap from 'p-map'
-import create from 'grpc-create-error'
+const test = require('ava')
+const path = require('path')
+const caller = require('grpc-caller')
+const Mali = require('mali')
+const grpc = require('@grpc/grpc-js')
+const create = require('grpc-create-error')
 
-import fauth from '../'
+const fauth = require('../')
 
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -21,7 +20,7 @@ const DYNAMIC_HOST = getHostport()
 const apps = []
 let client
 
-test.before('should dynamically create service', t => {
+test.before('should dynamically create service', async t => {
   function handler (ctx) {
     ctx.res = { message: ctx.req.message.toUpperCase() }
   }
@@ -55,14 +54,14 @@ test.before('should dynamically create service', t => {
   app.use('fn2', fauth('secret', { error: 'Unauthorized' }, auth2), handler)
   app.use('fn3', fauth('secret', { error: { metadata: errMetadata } }, auth3), handler)
   app.use('fn4', fauth('secret', { error: () => create('Unauthorized', 400, errMetadata) }, auth4), handler)
-  const server = app.start(DYNAMIC_HOST)
+  const server = await app.start(DYNAMIC_HOST)
 
   t.truthy(server)
 
   client = caller(DYNAMIC_HOST, PROTO_PATH, 'FieldService')
 })
 
-test('Should fail with fn1 withouth metadata', async t => {
+test('Should fail with fn1 without metadata', async t => {
   t.plan(2)
   const error = await t.throwsAsync(client.fn1({ message: 'hello' }))
   t.true(error.message.indexOf('Not Authorized') >= 0)
@@ -134,7 +133,7 @@ test('Should work with fn1 with correct authorization 2', async t => {
 
 // fn2 ---
 
-test('Should fail with fn2 withouth metadata', async t => {
+test('Should fail with fn2 without metadata', async t => {
   t.plan(2)
   const error = await t.throwsAsync(client.fn2({ message: 'hello' }))
   t.true(error.message.indexOf('Unauthorized') >= 0)
@@ -190,7 +189,7 @@ test('Should work with fn2 with correct authorization 2', async t => {
 
 // fn3 ---
 
-test('Should fail with fn3 withouth metadata', async t => {
+test('Should fail with fn3 without metadata', async t => {
   t.plan(5)
   const error = await t.throwsAsync(client.fn3({ message: 'hello' }))
   t.true(error.message.indexOf('Not Authorized') >= 0)
@@ -266,11 +265,11 @@ test('Should work with fn3 with correct authorization 2', async t => {
 
 // fn4 ---
 
-test('Should fail with fn4 withouth metadata', async t => {
+test('Should fail with fn4 without metadata', async t => {
   t.plan(6)
   const error = await t.throwsAsync(client.fn4({ message: 'hello' }))
   t.true(error.message.indexOf('Unauthorized') >= 0)
-  t.is(error.code, 400)
+  t.is(error.code, 2)
   t.truthy(error.metadata)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -283,7 +282,7 @@ test('Should fail with fn4 without authorization', async t => {
   meta.add('foo', 'bar')
   const error = await t.throwsAsync(client.fn4({ message: 'hello' }, meta))
   t.true(error.message.indexOf('Unauthorized') >= 0)
-  t.is(error.code, 400)
+  t.is(error.code, 2)
   t.truthy(error.metadata)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -296,7 +295,7 @@ test('Should fail with fn4 without correct authorization', async t => {
   meta.add('Authorization', 'bar')
   const error = await t.throwsAsync(client.fn4({ message: 'hello' }, meta))
   t.true(error.message.indexOf('Unauthorized') >= 0)
-  t.is(error.code, 400)
+  t.is(error.code, 2)
   t.truthy(error.metadata)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -309,7 +308,7 @@ test('Should fail with fn4 without correct authorization 2', async t => {
   meta.add('Authorization', 'secret 22222')
   const error = await t.throwsAsync(client.fn4({ message: 'hello' }, meta))
   t.true(error.message.indexOf('Unauthorized') >= 0)
-  t.is(error.code, 400)
+  t.is(error.code, 2)
   t.truthy(error.metadata)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -322,7 +321,7 @@ test('Should fail with fn4 without correct authorization 3', async t => {
   meta.add('Authorization', 'secret 22221')
   const error = await t.throwsAsync(client.fn4({ message: 'hello' }, meta))
   t.true(error.message.indexOf('Unauthorized') >= 0)
-  t.is(error.code, 400)
+  t.is(error.code, 2)
   t.truthy(error.metadata)
   t.true(error.metadata instanceof grpc.Metadata)
   const md = error.metadata.getMap()
@@ -346,5 +345,5 @@ test('Should work with fn4 with correct authorization 2', async t => {
 })
 
 test.after.always('cleanup', async t => {
-  await pMap(apps, app => app.close())
+  await Promise.all(apps, app => app.close())
 })
